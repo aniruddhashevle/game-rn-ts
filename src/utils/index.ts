@@ -1,3 +1,5 @@
+import { Alert } from "react-native";
+
 /**
  * 
  * @param N {number}
@@ -23,4 +25,29 @@ export const covertArrayNumsInPairs = (N: number) => {
  */
 export const getRandomPairs = (array: Array<any>, size: number) => {
   return array.sort(() => .5 - Math.random()).slice(0, size);
+}
+
+/**
+ * 
+ * @param object {title, msg, btnText, onBtnPress}
+ * @returns {Alert}
+ */
+export const showAlert = ({
+  title,
+  msg,
+  btnText,
+  onBtnPress,
+}: {
+  title: string,
+  msg: string,
+  btnText: string,
+  onBtnPress: () => void,
+}) => {
+  return Alert.alert(
+    title,
+    msg,
+    [
+      { text: btnText, onPress: onBtnPress, }
+    ]
+  )
 }
