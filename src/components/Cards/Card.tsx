@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import {
   Text,
   TouchableHighlight,
@@ -12,32 +12,67 @@ interface CardProps {
   cardId: number;
   cardNumber: number;
   isRightCard: boolean;
+  reverseFlip: boolean;
+  setReverseFlip: Dispatch<SetStateAction<boolean>>;
+  stepsCount: number;
   onCardPress: null | ((cardId: number, cardNumber: number) => void);
 }
 
-const Card: React.FC<CardProps> = (props: CardProps) => {
+const Card = (props: CardProps) => {
   const {
     cardId,
     cardNumber,
     isRightCard,
     onCardPress,
+    reverseFlip,
+    setReverseFlip,
+    stepsCount,
   } = props;
 
   const animate = useRef(new Animated.Value(0));
   const [isFlipped, setIsFlipped] = useState(false);
 
+  useEffect(() => {
+    if (reverseFlip && !isRightCard) {
+      animationFlop();
+    }
+  }, [reverseFlip])
+
+  useEffect(() => {
+    if (stepsCount === 0) {
+      animationFlop();
+    }
+  }, [stepsCount])
+
   const doAFlip = () => {
     if (!isRightCard) {
-      Animated.timing(animate.current, {
-        duration: 300,
-        toValue: isFlipped ? 0 : 180,
-        useNativeDriver: true,
-      }).start(() => {
-        setIsFlipped(!isFlipped);
-      });
-      onCardPress && onCardPress(cardId, cardNumber);
+      animationFlip();
     }
   };
+
+  const animationFlip = (delay: number = 0) => {
+    Animated.timing(animate.current, {
+      delay,
+      duration: 300,
+      toValue: 180,
+      useNativeDriver: true,
+    }).start(() => {
+      setIsFlipped(!isFlipped);
+    });
+    onCardPress && onCardPress(cardId, cardNumber);
+  }
+
+  const animationFlop = (delay: number = 0) => {
+    Animated.timing(animate.current, {
+      delay,
+      duration: 300,
+      toValue: 0,
+      useNativeDriver: true,
+    }).start(() => {
+      setIsFlipped(!isFlipped);
+      setReverseFlip(false);
+    });
+  }
 
   const interpolatedValueFront = animate.current.interpolate({
     inputRange: [0, 180],

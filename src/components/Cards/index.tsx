@@ -19,6 +19,7 @@ const Cards = () => {
   const [selectedCardId, setSelectedCardId] = useState<number>(-1);
   const [selectedCardNum, setSelectedCardNum] = useState<number>(-1);
   const [rightSelectionCount, setRightSelectionCount] = useState<number>(0);
+  const [reverseFlip, setReverseFlip] = useState(false);
   const dispatch = useAppDispatch();
   const stepsCount = useAppSelector(stepCountSelector);
   const cardPairs = useAppSelector(cardPairsSelector);
@@ -37,6 +38,10 @@ const Cards = () => {
         }));
         setCardListToShow(cardsList);
         setRightSelectionCount(rightSelectionCount + 1);
+      } else {
+        setTimeout(() => {
+          setReverseFlip(true);
+        }, 1000);
       }
       setSelectedCardDetails();
     } else {
@@ -58,6 +63,7 @@ const Cards = () => {
 
   useEffect(() => {
     if (rightSelectionCount === TOTAL_PARIS_TO_SHOW) {
+      setReverseFlip(true);
       setRightSelectionCount(0);
       showAlert({
         title: "Cogratulations!",
@@ -88,6 +94,9 @@ const Cards = () => {
             cardId={id}
             isRightCard={isRightCard}
             onCardPress={(id === selectedCardId || isRightCard) ? null : onCardPress}
+            reverseFlip={reverseFlip}
+            setReverseFlip={setReverseFlip}
+            stepsCount={stepsCount}
           />
         )
       }
