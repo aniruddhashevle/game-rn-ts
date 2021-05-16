@@ -5,7 +5,7 @@ import {
   View,
 } from 'react-native';
 import { CARD_PAIRS_VALUE, TOTAL_PARIS_TO_SHOW } from '../../config/appConfig';
-import { setCardPairs } from '../../containers/Game/GameActions';
+import { setCardPairs, setStepCount } from '../../containers/Game/GameActions';
 import { stepCountSelector } from '../../containers/Game/GameSelectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import { getRandomPairs } from '../../utils';
@@ -19,6 +19,7 @@ const Header = () => {
     // generate random pairs and set in redux
     const randomParis: Array<Array<number>> = getRandomPairs(CARD_PAIRS_VALUE, TOTAL_PARIS_TO_SHOW);
     dispatch(setCardPairs(randomParis));
+    dispatch(setStepCount(0));
   }
 
   return (

@@ -4,35 +4,31 @@ import {
   TouchableHighlight,
 } from 'react-native';
 import appColors from '../../config/appColors';
-import { setStepCount } from '../../containers/Game/GameActions';
-import { stepCountSelector } from '../../containers/Game/GameSelectors';
-import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import styles from './CardsStyle';
 
 interface CardProps {
+  cardId: number;
   cardNumber: number;
+  isRightCard: boolean;
+  onCardPress: null | ((cardId: number, cardNumber: number) => void);
 }
 
 const Card = (props: CardProps) => {
   const {
+    cardId,
     cardNumber,
+    isRightCard,
+    onCardPress,
   } = props;
-  
-  const dispatch = useAppDispatch();
-  const stepsCount = useAppSelector(stepCountSelector);
-
-  const onCardPress = () => {
-    dispatch(setStepCount(stepsCount + 1));
-  }
 
   return (
     <TouchableHighlight
       activeOpacity={0.6}
       underlayColor={appColors.cardSelect}
-      onPress={onCardPress}
+      onPress={() => onCardPress && onCardPress(cardId, cardNumber)}
       style={styles.card}
     >
-      <Text style={styles.cardNumber}>{cardNumber}</Text>
+      <Text style={styles.cardNumber}>{isRightCard ? `${cardNumber} RIGHT` : cardNumber}</Text>
     </TouchableHighlight>
   );
 };
