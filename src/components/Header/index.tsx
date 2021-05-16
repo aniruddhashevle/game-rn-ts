@@ -4,16 +4,26 @@ import {
   Text,
   View,
 } from 'react-native';
+import { CARD_PAIRS_VALUE, TOTAL_PARIS_TO_SHOW } from '../../config/appConfig';
+import { setCardPairs } from '../../containers/Game/GameActions';
 import { stepCountSelector } from '../../containers/Game/GameSelectors';
-import { useAppSelector } from '../../hooks/useRedux';
+import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
+import { getRandomPairs } from '../../utils';
 import styles from './HeaderStyle';
 
 const Header = () => {
   const stepsCount = useAppSelector(stepCountSelector);
+  const dispatch = useAppDispatch();
+
+  const onRestartPress = () => {
+    // generate random pairs and set in redux
+    const randomParis: Array<Array<number>> = getRandomPairs(CARD_PAIRS_VALUE, TOTAL_PARIS_TO_SHOW);
+    dispatch(setCardPairs(randomParis));
+  }
 
   return (
     <View style={styles.container}>
-      <Button title="Restart" onPress={() => { }} />
+      <Button title="Restart" onPress={onRestartPress} />
       <Text style={styles.steps}>
         STEPS:
         <Text style={styles.stepsCount}>{stepsCount}</Text>
