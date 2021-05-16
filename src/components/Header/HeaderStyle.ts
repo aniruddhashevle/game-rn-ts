@@ -9,13 +9,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    // backgroundColor: '#ff0', TODO
   },
   steps: {
-    fontSize: 34,
+    fontSize: 30,
+    color: appColors.white,
   },
   stepsCount: {
-    fontSize: 44,
+    fontSize: 40,
     color: appColors.darkBlue,
   },
 });

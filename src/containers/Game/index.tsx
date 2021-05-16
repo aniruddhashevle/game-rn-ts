@@ -4,23 +4,16 @@ import {
   StatusBar,
   useColorScheme,
 } from 'react-native';
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
 import Cards from '../../components/Cards';
 import Header from '../../components/Header';
 import { useAppDispatch } from '../../hooks/useRedux';
 import { getRandomPairs } from '../../utils';
 import { setCardPairs } from './GameActions';
 import { CARD_PAIRS_VALUE, TOTAL_PARIS_TO_SHOW } from '../../config/appConfig';
+import styles from './GameStyle';
 
 const Game = () => {
   const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-    flex: 1,
-  };
 
   const dispatch = useAppDispatch();
 
@@ -31,7 +24,7 @@ const Game = () => {
   }, [])
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <Header />
       <Cards />
