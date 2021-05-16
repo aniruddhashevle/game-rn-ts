@@ -52,6 +52,7 @@ const Cards = () => {
       cardsList = cardsList.map((cardNum: number, id: number) => ({ id, cardNum, isRightCard: false }));
       setCardListToShow(cardsList);
       setSelectedCardDetails();
+      setRightSelectionCount(0);
     }
   }, [cardPairs]);
 
@@ -80,7 +81,7 @@ const Cards = () => {
           cardNum,
           id,
           isRightCard,
-        }) =>
+        }: CardListToShow) =>
           <Card
             key={id}
             cardNumber={cardNum}
