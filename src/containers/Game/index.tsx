@@ -10,38 +10,29 @@
 
 import React from 'react';
 import {
-  Button,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   useColorScheme,
 } from 'react-native';
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
+import Cards from '../../components/Cards';
 import Header from '../../components/Header';
-import { useAppSelector, useAppDispatch } from '../../hooks/useRedux';
-import { gameAction } from './GameActions';
-import { countSelector } from './GameSelectors';
 
 const Game = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+    flex: 1,
   };
-  const dispatch = useAppDispatch();
-  const count = useAppSelector(countSelector);
 
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <Button title="Click" onPress={() => dispatch(gameAction(count + 1))}></Button>
-      </ScrollView>
+      <Header />
+      <Cards />
     </SafeAreaView>
   );
 };

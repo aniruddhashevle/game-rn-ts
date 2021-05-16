@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     // backgroundColor: '#ff0', TODO
   },
   steps: {

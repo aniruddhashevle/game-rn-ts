@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Button,
   Text,
@@ -10,8 +10,6 @@ import styles from './HeaderStyle';
 
 const Header = () => {
   const stepsCount = useAppSelector(countSelector);
-  useEffect(() => {
-  }, []);
 
   return (
     <View style={styles.container}>
