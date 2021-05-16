@@ -3,9 +3,9 @@ import {
   Text,
   TouchableHighlight,
 } from 'react-native';
-import appColors from '../../constants/appColors';
-import { gameAction } from '../../containers/Game/GameActions';
-import { countSelector } from '../../containers/Game/GameSelectors';
+import appColors from '../../config/appColors';
+import { setStepCount } from '../../containers/Game/GameActions';
+import { stepCountSelector } from '../../containers/Game/GameSelectors';
 import { useAppDispatch, useAppSelector } from '../../hooks/useRedux';
 import styles from './CardsStyle';
 
@@ -19,10 +19,10 @@ const Card = (props: CardProps) => {
   } = props;
   
   const dispatch = useAppDispatch();
-  const stepsCount = useAppSelector(countSelector);
+  const stepsCount = useAppSelector(stepCountSelector);
 
   const onCardPress = () => {
-    dispatch(gameAction(stepsCount + 1));
+    dispatch(setStepCount(stepsCount + 1));
   }
 
   return (

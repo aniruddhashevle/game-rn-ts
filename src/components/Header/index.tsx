@@ -4,12 +4,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import { countSelector } from '../../containers/Game/GameSelectors';
+import { stepCountSelector } from '../../containers/Game/GameSelectors';
 import { useAppSelector } from '../../hooks/useRedux';
 import styles from './HeaderStyle';
 
 const Header = () => {
-  const stepsCount = useAppSelector(countSelector);
+  const stepsCount = useAppSelector(stepCountSelector);
 
   return (
     <View style={styles.container}>

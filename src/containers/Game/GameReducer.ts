@@ -1,23 +1,35 @@
+import {
+  SET_STEP_COUNT,
+  SET_CARD_PAIRS,
+} from "./constants";
+
 interface PayloadJson {
   [key: string]: any;
 }
 
 export interface GameState {
-  count: number;
+  stepCount: number;
+  cardPairs: null | Array<Array<number>>;
 }
 
 const initialState: GameState = {
-  count: 0,
+  stepCount: 0,
+  cardPairs: null,
 }
 
 type Action = { payload: PayloadJson; type: string };
 export default (state = initialState, action: Action) => {
   switch (action.type) {
-    case "SIMPLE_ACTION":
+    case SET_STEP_COUNT:
       return {
         ...state,
-        count: action.payload,
+        stepCount: action.payload,
       };
+    case SET_CARD_PAIRS:
+      return {
+        ...state,
+        cardPairs: action.payload,
+      }
     default:
       return state;
   }
