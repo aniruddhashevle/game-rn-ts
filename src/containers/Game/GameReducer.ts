@@ -2,8 +2,16 @@ interface PayloadJson {
   [key: string]: any;
 }
 
+export interface GameState {
+  count: number;
+}
+
+const initialState: GameState = {
+  count: 0,
+}
+
 type Action = { payload: PayloadJson; type: string };
-export default (state = { count: 0 }, action: Action) => {
+export default (state = initialState, action: Action) => {
   switch (action.type) {
     case "SIMPLE_ACTION":
       return {

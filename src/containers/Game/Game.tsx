@@ -10,6 +10,7 @@
 
 import React, { useEffect } from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -25,9 +26,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import { bindActionCreators, Dispatch } from 'redux';
-import { connect } from 'react-redux';
-import { gameAction } from '../../redux/actions/game-actions';
+import { useAppSelector, useAppDispatch } from '../../hooks/useRedux';
+import { gameAction } from './GameActions';
+import { countSelector } from './GameSelectors';
 
 const Section: React.FC<{
   title: string;
@@ -57,18 +58,18 @@ const Section: React.FC<{
   );
 };
 
-const Game = ({
-  gameAction,
-  count,
-}: any) => {
+const Game = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const dispatch = useAppDispatch();
+  const count = useAppSelector(countSelector);
+
   useEffect(() => {
-    gameAction(count + 1);
+    dispatch(gameAction(count + 1));
   }, []);
 
   return (
@@ -97,6 +98,8 @@ const Game = ({
            </Section>
           <LearnMoreLinks />
         </View>
+        <Button title="Click" onPress={() => dispatch(gameAction(count + 1))}></Button>
+        <Text>{count}</Text>
       </ScrollView>
     </SafeAreaView>
   );
@@ -121,19 +124,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state: any) => {
-  const {
-    count
-  } = state.gameReducers;
-  return {
-    count
-  };
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => (
-  bindActionCreators({
-    gameAction,
-  }, dispatch)
-)
-
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default Game;
