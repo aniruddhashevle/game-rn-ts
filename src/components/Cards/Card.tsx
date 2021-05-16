@@ -1,10 +1,5 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import {
-  Text,
-  TouchableHighlight,
-  Animated,
-  View,
-} from 'react-native';
+import { Text, TouchableHighlight, Animated, View } from 'react-native';
 import appColors from '../../config/appColors';
 import styles from './CardsStyle';
 
@@ -28,7 +23,6 @@ const Card = (props: CardProps) => {
     setReverseFlip,
     stepsCount,
   } = props;
-
   const animate = useRef(new Animated.Value(0));
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -39,7 +33,7 @@ const Card = (props: CardProps) => {
   }, [reverseFlip])
 
   useEffect(() => {
-    if (stepsCount === 0) {
+    if (stepsCount === 0) { // flop all the cards when game reset
       animationFlop();
     }
   }, [stepsCount])
@@ -86,9 +80,7 @@ const Card = (props: CardProps) => {
 
   const rotateFront = {
     transform: [
-      {
-        rotateY: interpolatedValueFront,
-      },
+      { rotateY: interpolatedValueFront },
     ],
     ...styles.cardFace,
     ...styles.frontCard,
@@ -96,9 +88,7 @@ const Card = (props: CardProps) => {
 
   const rotateBack = {
     transform: [
-      {
-        rotateY: interpolatedValueBack,
-      },
+      { rotateY: interpolatedValueBack },
     ],
     ...styles.cardFace,
     ...styles.backCard,

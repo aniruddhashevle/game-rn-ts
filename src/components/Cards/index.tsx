@@ -52,6 +52,7 @@ const Cards = () => {
 
   useEffect(() => {
     if (cardPairs) {
+      // reset card details and update with the new details
       let flatCardParis = cardPairs.flat();
       let cardsList = getRandomPairs(flatCardParis, TOTAL_PARIS_TO_SHOW * 2);
       cardsList = cardsList.map((cardNum: number, id: number) => ({ id, cardNum, isRightCard: false }));
@@ -62,7 +63,7 @@ const Cards = () => {
   }, [cardPairs]);
 
   useEffect(() => {
-    if (rightSelectionCount === TOTAL_PARIS_TO_SHOW) {
+    if (rightSelectionCount === TOTAL_PARIS_TO_SHOW) { // game win
       setReverseFlip(true);
       setRightSelectionCount(0);
       showAlert({
